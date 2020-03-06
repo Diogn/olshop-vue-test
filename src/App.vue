@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <app-header />
-    <app-product />
-    <app-cart />
+    <div class="w-full flex">
+      <app-product class="w-2/3" />
+      <app-cart class="w-1/3"/>
+    </div>
+    
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-gray-300">
+    <div class="bg-gray-300 border-3">
         <div class="w-full h-screen flex justify-center">
-            <div class="pt-10" v-for="item in cart" :key="item.id"> 
-                Trolly : {{ item }}
+            <div class="text-black font-4xl"> 
+                hahaha
             </div>
             
         </div>
