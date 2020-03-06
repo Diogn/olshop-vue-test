@@ -1,0 +1,55 @@
+{
+"products": [
+        {
+            "id": 1,
+            "name": "Ice Cream",
+            "src": "https://cf.shopee.co.id/file/04ab09660a913b2bf3001130dc137843",
+            "price": 100,
+            "quantity": 5,
+            "category": "Ice"
+        },
+        {
+            "id": 2,
+            "name": "Orange Milk",
+            "src": "https://cf.shopee.co.id/file/04ab09660a913b2bf3001130dc137843",
+            "price": 80,
+            "quantity": 5,
+            "category": "Milk"
+        },
+        {
+            "id": 3,
+            "name": "Grape Ice",
+            "src": "https://cf.shopee.co.id/file/04ab09660a913b2bf3001130dc137843",
+            "price": 90,
+            "quantity": 5,
+            "category": "Ice"
+        },
+        {
+            "id": 4,
+            "name": "Banana Juice",
+            "src": "https://cf.shopee.co.id/file/04ab09660a913b2bf3001130dc137843",
+            "price": 75,
+            "quantity": 5,
+            "category": "Jus"
+        },
+        {
+            "id": 5,
+            "name": "Cow Milk",
+            "src": "https://cf.shopee.co.id/file/04ab09660a913b2bf3001130dc137843",
+            "price": 45,
+            "quantity": 5,
+            "category": "Milk"
+        },
+        {
+            "id": 6,
+            "name": "Belimbing Juice",
+            "src": "https://cf.shopee.co.id/file/04ab09660a913b2bf3001130dc137843",
+            "price": 40,
+            "quantity": 5,
+            "category": "Jus"
+        }
+    ],
+    "category": [
+        "Jus", "Ice", "Milk"
+    ]
+}
