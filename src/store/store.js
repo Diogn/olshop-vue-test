@@ -8,19 +8,15 @@ Vue.use(VueAxios, axios);
 
 export const store = new Vuex.Store({
     state: {
-        products: null,
+        all : null,
         cart: [],
-        // toast: {
-
-        // }
     },
     getters: {
         fetchProducts: state => {
-            console.log(state.products)
-            return state.products
+            return state.all
         },
         fetchCart: state => {
-            return state.cart
+            return state.cart;
         }
     },
     actions: {
@@ -28,22 +24,31 @@ export const store = new Vuex.Store({
             axios
                 .get('http://localhost:3000/products')
                 .then(r => r.data)
-                .then(products =>{
-                    commit('SET_PRODUCTS', products)
+                .then(all =>{
+                    commit('SET_PRODUCTS', all)
                 })
+        },
+        addToCart({ commit }, product) {
+           commit('ADD_TO_CART', {
+               id: product.id
+           })
         }
-        
     },
     mutations: {
+        // Initializing products
         SET_PRODUCTS(state, payload) {
-            state.products = payload;
+            state.all = payload;
         },
-        addToCart ({ state }, productId) {
-            let product = state.products.find((product) => product.id === productId)
-            // let cartProductIndex = state.cart.findIndex((product) => product.id === productId);
-            console.log(product)
-            // console.log(cartProductIndex)
+        ADD_TO_CART( state, {id}) {
+            const record = state.cart.find(p => p.id === id)
+            if (!record) {
+                state.cart.push({
+                    id, 
+                    quantity: 1
+                }) 
+            } else {
+                record.quantity++;
+            }
         } 
-        // }
     }
 })

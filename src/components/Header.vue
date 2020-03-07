@@ -4,8 +4,7 @@
       <span class="font-semibold text-xl tracking-tight">Olshop</span>
     </div>
     <div class="block lg:hidden">
-      <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-      </button>
+     
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
       <div class="text-sm lg:flex-grow">
