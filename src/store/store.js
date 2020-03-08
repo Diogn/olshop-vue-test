@@ -30,8 +30,16 @@ export const store = new Vuex.Store({
         },
         addToCart({ commit }, product) {
            commit('ADD_TO_CART', {
-               id: product.id
+               id: product.id,
+               name: product.name,
+               price: product.price
            })
+        },
+        decIncrease({ commit}, product) {
+            commit(['MIN_ITEM', 'PLUS_ITEM'], {
+                id: product.id,
+                qty: product.quantity
+            })
         }
     },
     mutations: {
@@ -39,16 +47,24 @@ export const store = new Vuex.Store({
         SET_PRODUCTS(state, payload) {
             state.all = payload;
         },
-        ADD_TO_CART( state, {id}) {
+        ADD_TO_CART( state, {id, name, price}) {
             const record = state.cart.find(p => p.id === id)
             if (!record) {
                 state.cart.push({
-                    id, 
+                    name,
+                    id,
+                    price,
                     quantity: 1
                 }) 
             } else {
                 record.quantity++;
             }
-        } 
+        },
+        // MIN_ITEM( state, {id, qty}) {
+        //     const item = state.cart.find(p => p.id === id)
+        //     if (!item) {
+        //         // state.cart.
+        //     }
+        // }
     }
 })
