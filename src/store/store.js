@@ -17,6 +17,12 @@ export const store = new Vuex.Store({
         },
         fetchCart: state => {
             return state.cart;
+        },
+        fetchCategory: (state) => {
+            let cat = [...new Set(state.all)];
+            return cat;
+            // console.log(cat)
+            // return getters[...new Set(state.all)];
         }
     },
     actions: {
@@ -28,6 +34,7 @@ export const store = new Vuex.Store({
                     commit('SET_PRODUCTS', all)
                 })
         },
+        
         addToCart({ commit }, product) {
            commit('ADD_TO_CART', {
                id: product.id,
@@ -35,10 +42,19 @@ export const store = new Vuex.Store({
                price: product.price
            })
         },
-        decIncrease({ commit}, product) {
-            commit(['MIN_ITEM', 'PLUS_ITEM'], {
+        increase({ commit }, product) {
+            commit('INCREASE_CART', {
+                id: product.id
+            })
+        },
+        decrease({ commit }, product) {
+            commit('DECREASE_CART', {
                 id: product.id,
-                qty: product.quantity
+            })
+        },
+        remove({ commit }, product) {
+            commit('REMOVE_CART', {
+                id: product.id
             })
         }
     },
@@ -60,11 +76,28 @@ export const store = new Vuex.Store({
                 record.quantity++;
             }
         },
-        // MIN_ITEM( state, {id, qty}) {
-        //     const item = state.cart.find(p => p.id === id)
-        //     if (!item) {
-        //         // state.cart.
-        //     }
+        INCREASE_CART( state, { id }) {
+            const record = state.cart.find(p => p.id === id)
+            record.quantity++;
+            // record
+        },
+        DECREASE_CART( state, { id }) {
+            const record = state.cart.find(p => p.id === id) 
+            if (record.quantity <= 1) {
+                alert('Pejet Tombol Remove e cuk!')
+                record.quantity = 1;
+            } else {
+                record.quantity--;
+            }
+        },
+        REMOVE_CART( state, { id }) {
+            const record = state.cart.find(p => p.id === id) 
+            if (record.quantity <= 1) {
+                state.cart.splice(record, 1)
+            }
+        }
+        // FETCH_CATEGORY( state, { cat }) {
+        //     return state.cart
         // }
     }
 })
