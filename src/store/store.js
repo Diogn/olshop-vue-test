@@ -10,31 +10,39 @@ export const store = new Vuex.Store({
     state: {
         all : null,
         cart: [],
+        cat: []
     },
     getters: {
-        fetchProducts: state => {
-            return state.all
-        },
-        fetchCart: state => {
-            return state.cart;
-        },
-        fetchCategory: (state) => {
-            let cat = [...new Set(state.all)];
-            return cat;
-            // console.log(cat)
-            // return getters[...new Set(state.all)];
-        }
+        fetchProducts: state => state.all,
+        fetchCart: state => state.cart,
+        fetchCategory: state => state.cat
     },
     actions: {
-        fetchProducts ({ commit }) {
+        async fetchProducts ({ commit }) {
+            const res = await axios.get('http://localhost:3000/products')
+                        commit('SET_PRODUCTS', res)
+           // axios
+            //     .get('http://localhost:3000/products')
+            //     .then(r => r.data)
+            //     .then(all =>{
+            //         commit('SET_PRODUCTS', all)
+           //     })
+        },
+        fetchCategory({commit}) {
             axios
                 .get('http://localhost:3000/products')
-                .then(r => r.data)
-                .then(all =>{
-                    commit('SET_PRODUCTS', all)
+                .then(res => res.data) 
+                .then(function(res){
+                    let element = [];
+                    for (let index = 0; index < res.length; index++) {
+                        element.push(res[index].category);
+                    }
+                    element = [...new Set(element)];
+                    commit('FILTERED_CAT', {
+                        cat: element
+                    })
                 })
         },
-        
         addToCart({ commit }, product) {
            commit('ADD_TO_CART', {
                id: product.id,
@@ -95,9 +103,10 @@ export const store = new Vuex.Store({
             if (record.quantity <= 1) {
                 state.cart.splice(record, 1)
             }
+        },
+        FILTERED_CAT( state, { cat }) {
+            console.log('MUTATE', cat)
+            return state.cat = cat
         }
-        // FETCH_CATEGORY( state, { cat }) {
-        //     return state.cart
-        // }
     }
 })
