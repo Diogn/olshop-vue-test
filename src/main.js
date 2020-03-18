@@ -6,6 +6,10 @@ import { store } from './store/store.js'
 
 Vue.use(Vuex)
 Vue.config.productionTip = false
+const token = localStorage.getItem('token')
+if (token) {
+  Vue.$store.defaults.headers.common['Authorization'] = token
+}
 
 new Vue({
   store,

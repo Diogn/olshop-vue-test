@@ -1,5 +1,6 @@
 <template>
-    <div class="rounded overflow-hidden shadow-lg flex justify-center flex-wrap">
+    <div class="rounded overflow-hidden shadow-lg flex justify-center flex-wrap" v-if="this.$route.path">
+        <!-- <p>{{ this.$route.path }}</p> -->
         <div v-for="item in filterProduct()" :key="item.id" class="max-w-xs mx-3 my-3 border rounded-md shadow">
             <img class="w-full" :src="item.src" alt="Sunset in the mountains">
             <div class="flex justify-center">
@@ -30,11 +31,11 @@ export default {
     },
     watch: {
         '$route': 'filterProduct'
-        
     },
     computed: {
         ...mapGetters({
-            products: 'fetchProducts'
+            products: 'fetchProducts',
+            category: 'fetchCategory'
         }),
         
     },
@@ -43,13 +44,15 @@ export default {
             "addToCart"
         ]),
         filterProduct() {
-            console.log(this.$route)
             let param = this.$route.path.slice(1, this.$route.path.length);
             let products = this.$store.getters.fetchProducts;
             let temp = [];      
-            temp = param ? products.data.filter(ob => ob.category === param) : products.data;
-            console.log(temp)
+            if(products.data) {
+                temp = param ? products.data.filter(ob => ob.category === param) : products.data;
+            }
+
             return temp ;
+
         }
     }
 }

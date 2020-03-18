@@ -10,23 +10,19 @@ export const store = new Vuex.Store({
     state: {
         all : null,
         cart: [],
-        cat: []
+        cat: [],
+        showModal: false,
     },
     getters: {
         fetchProducts: state => state.all,
         fetchCart: state => state.cart,
-        fetchCategory: state => state.cat
+        fetchCategory: state => state.cat,
+        getShowModal: state => state.showModal
     },
     actions: {
         async fetchProducts ({ commit }) {
             const res = await axios.get('http://localhost:3000/products')
                         commit('SET_PRODUCTS', res)
-           // axios
-            //     .get('http://localhost:3000/products')
-            //     .then(r => r.data)
-            //     .then(all =>{
-            //         commit('SET_PRODUCTS', all)
-           //     })
         },
         fetchCategory({commit}) {
             axios
@@ -64,7 +60,13 @@ export const store = new Vuex.Store({
             commit('REMOVE_CART', {
                 id: product.id
             })
-        }
+        },
+        showOrHiddenModal({ commit }){
+            commit('SHOW_MODAL');
+        },   
+        destroyCart({ commit }) {
+            commit('DESTROY_CART');
+        }   
     },
     mutations: {
         // Initializing products
@@ -105,8 +107,13 @@ export const store = new Vuex.Store({
             }
         },
         FILTERED_CAT( state, { cat }) {
-            console.log('MUTATE', cat)
             return state.cat = cat
+        },
+        SHOW_MODAL: (state) => {
+            state.showModal = !state.showModal;
+        },
+        DESTROY_CART( state ) {
+            state.cart = [];
         }
     }
 })

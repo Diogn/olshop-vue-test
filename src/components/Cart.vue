@@ -15,9 +15,12 @@
             </div>
         </div>
         <div class="px-6 py-2 flex w-full">
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#Total</span>
-            <div class="font-sans text-black font-size-2xl font-black" v-show="totalPrice >= 1">{{ totalPrice }}</div>
+            <span class="inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">#Total</span>
+            <div class="text-black" v-show="totalPrice >= 1">{{ totalPrice }}</div>
             <div class="font-sans text-black font-size-2xl font-black" v-show="totalPrice === 0">Empty Cart! (ndang belonjo)</div>
+        </div>
+        <div class="w-full py-3 flex justify-center">
+            <button @click="showOrHiddenModal()" class="w-2/3 rounded bg-green-200 text-black font-bolder">CHECKOUT</button>
         </div>
     </div>
 </template>
@@ -25,11 +28,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
-    data() {
-        return {
-            
-        }
-    },
     computed: {
         ...mapGetters({
            cart: 'fetchCart'
@@ -45,6 +43,9 @@ export default {
             "decrease",
             "increase",
             "remove"
+        ]),
+        ...mapActions([
+            "showOrHiddenModal"
         ])
     }
 }
