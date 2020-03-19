@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded overflow-hidden shadow-lg flex justify-center flex-wrap" v-if="this.$route.path">
+    <div class="rounded min-h-full overflow-hidden shadow-lg flex justify-center flex-wrap" v-if="this.$route.path">
         <!-- <p>{{ this.$route.path }}</p> -->
         <div v-for="item in filterProduct()" :key="item.id" class="max-w-xs mx-3 my-3 border rounded-md shadow">
             <img class="w-full" :src="item.src" alt="Sunset in the mountains">
