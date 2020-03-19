@@ -13,9 +13,6 @@
         </router-link>
       </div>
     </div>
-    <div>
-      <router-link to="/about">About</router-link><span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
-    </div>
   </nav>
 </template>
 
@@ -25,20 +22,11 @@ export default {
   computed: {
       ...mapGetters({
           category: 'fetchCategory',
-      }),
-      isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+      })
   },
   mounted() {
     this.$store.dispatch('fetchCategory')
-  },
-  methods: {
-    logout: function () {
-      this.$store.dispatch('logout')
-      .then(() => {
-        this.$router.push('/login')
-      })
-    }
-  },
+  }
 }
 </script>
 

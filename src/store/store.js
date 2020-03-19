@@ -2,22 +2,25 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import router from '../router/router'
 
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
     state: {
         all : null,
         cart: [],
         cat: [],
         showModal: false,
+        user: ''
     },
     getters: {
         fetchProducts: state => state.all,
         fetchCart: state => state.cart,
         fetchCategory: state => state.cat,
-        getShowModal: state => state.showModal
+        getShowModal: state => state.showModal,
+        auth: state => state.user
     },
     actions: {
         async fetchProducts ({ commit }) {
@@ -66,7 +69,28 @@ export const store = new Vuex.Store({
         },   
         destroyCart({ commit }) {
             commit('DESTROY_CART');
-        }   
+        },
+        async fetchUser( { commit }, id ) {
+            try {
+                const res = await axios.get('http://localhost:3000/users/' + id )
+                commit('setUser', res.data)
+            } catch (error) {
+                window.alert(error)
+            }
+        },
+        async login({ dispatch }, payload) {
+            try {
+                const res = await axios.get('http://localhost:3000/users?name=' + payload.name + '&password=' + payload.password + '&_limit=1')
+                console.log('TEKAN', res)
+                const user = res.data[0]
+
+                dispatch('fetchUser', user.id )
+                window.$cookies.set('user', user.id)
+                router.push('/')
+            } catch (error) {
+                window.alert(error)
+            }
+        }
     },
     mutations: {
         // Initializing products
@@ -114,6 +138,10 @@ export const store = new Vuex.Store({
         },
         DESTROY_CART( state ) {
             state.cart = [];
+        },
+        setUser(state, payload) {
+            state.user = payload
         }
     }
 })
+

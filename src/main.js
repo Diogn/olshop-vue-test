@@ -1,15 +1,31 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Vuex from 'vuex'
-import router from './router/router.js'
-import { store } from './store/store.js'
+import router from './router/router'
+import store from './store/store'
+import VueCookies from 'vue-cookies'
 
-Vue.use(Vuex)
+Vue.use(VueCookies)
 Vue.config.productionTip = false
-const token = localStorage.getItem('token')
-if (token) {
-  Vue.$store.defaults.headers.common['Authorization'] = token
-}
+
+router.beforeEach((to, from, next) => {
+  if (!to.meta.middleware) return next()
+  
+  if (!store.getters.auth && window.$cookies.isKey('user') ) 
+  store.dispatch('fetchUser', window.$cookies.get('user'))
+  
+  const middleware = to.meta.middleware
+
+  const context = {
+    to, 
+    from,
+    next, 
+    store
+  }
+
+  return middleware[0] ({
+    ...context
+  })
+})
 
 new Vue({
   store,
