@@ -13,9 +13,6 @@
         </router-link>
       </div>
     </div>
-    <div>
-      <router-link to="/about">About</router-link><span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
-    </div>
   </nav>
 </template>
 

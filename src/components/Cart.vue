@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-full rounded overflow-hidden shadow-lg fixed right-0">
+    <div class="max-w-full min-h-full rounded overflow-hidden shadow-lg fixed right-0">
         <div class="px-6 py-2" >
             <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
             <div v-for="item in cart" :key="item.id" >
